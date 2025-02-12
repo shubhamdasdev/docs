@@ -1,33 +1,56 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Reference'
+description: 'Complete API reference for Cortex API'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+# API Reference
 
-## Welcome
+Welcome to the Cortex API reference documentation. This section provides detailed information about the available API endpoints, request/response formats, and authentication methods.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## Base URL
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+When running locally, the base URL for all API endpoints is:
+
+```
+http://localhost:8000
+```
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+Authentication details and methods will be documented here.
+
+## Response Format
+
+The API typically returns responses in JSON format. Here's an example response structure:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "reasoning": [
+    {
+      "query": "example_query",
+      "properties": "example_properties",
+      "context": "example_context"
+    },
+    {
+      "query": "another_query",
+      "properties": "another_properties",
+      "context": "another_context"
+    }
+  ],
+  "final_answer": "example_final_answer"
+}
 ```
+
+## API Documentation Tools
+
+Cortex API provides two interactive documentation interfaces:
+
+1. **Swagger UI** ([/docs](http://localhost:8000/docs))
+   - Interactive API testing
+   - Request/response examples
+   - OpenAPI specification
+
+2. **ReDoc** ([/redoc](http://localhost:8000/redoc))
+   - Clean, organized documentation
+   - Easy-to-read format
+   - Search functionality

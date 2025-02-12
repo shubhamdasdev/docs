@@ -1,0 +1,99 @@
+---
+title: 'Architecture'
+description: 'Detailed architecture and flow diagrams of Cortex API'
+---
+
+# Cortex Architecture
+
+## Phase I - Core Architecture
+
+### Query Processing Flow
+
+This diagram illustrates how user queries are processed through the system:
+
+![Query Processing Flow](/images/Query_reasoning.svg)
+
+The query processing flow consists of several key steps:
+
+1. **User Query Input**: The process begins when a user submits a query
+2. **Decomposition & Sequence Generation**: The system breaks down the query and generates processing sequences
+3. **Sub-query Processing**: The query is processed through three parallel paths:
+   - Property Graph Query
+   - Vectorstore Query
+   - Analytical Context Lookup
+4. **Knowledge Context Generation**: Results are combined to generate a comprehensive knowledge context
+5. **Fine-Tuned Processing**: The system processes the context through fine-tuned models
+6. **Response Generation**: Finally, a well-structured response is generated for the user
+
+### Document Processing Flow
+
+This diagram shows how documents are processed and indexed in the system:
+
+![Document Processing Flow](/images/Ingestion_Pipeline.png)
+
+The document processing pipeline includes:
+
+1. **Document Upload**: Initial document submission
+2. **LlamaParser Processing**: Documents are parsed using LlamaParser
+3. **Document Splitting**: Content is split into manageable sub-documents
+4. **Parallel Processing**:
+   - Dynamic Knowledge Graph Indexing
+   - Analytical Indexing
+   - Sub-document Processing for Embeddings & Summaries
+5. **Sub-document Enhancement**:
+   - Conversion to Semantic Chunks
+   - Summary Generation
+   - Hypothetical Question Generation
+6. **Vector Storage**: Processed documents are indexed in Pinecone Vector Store
+
+## Phase II - Enhanced Architecture
+
+### Document Ingestion Pipeline
+
+The enhanced document ingestion pipeline introduces sophisticated processing and management features:
+
+![Document Ingestion Flow](/images/Ingestion_Pipeline-Phase_II.svg)
+
+Key components include:
+
+1. **Background & Support**:
+   - Streaming Updates via Kafka Connect
+   - Versioning & Audit Trails using Git/DB Versions
+   - Observability Systems
+   - Knowledge Graph Indexing with Neo4j/Arango
+
+2. **Parallel Processing**:
+   - Dynamic Chunk Sizing with LangChain/spaCy
+   - Advanced Summaries using Hugging Face
+   - Domain-Specific Embeddings with SBERT
+   - Hybrid Indexing & Re-Rank using BM25 + Vector
+
+### Query Processing System
+
+The Phase II query processing system introduces advanced query handling capabilities:
+
+![Query Processing System](/images/Query_reasoning-Phase_II.svg)
+
+Major components:
+
+1. **Query Pre-processing**:
+   - User Intent Classification
+   - Query Decomposition
+   - Context Enrichment
+
+2. **Processing Pipelines**:
+   - Semantic Analysis
+   - Document Retrieval
+   - Knowledge Graph Integration
+   - Cross-Reference Processing
+
+3. **Response Generation**:
+   - Dynamic Response Assembly
+   - Context Validation
+   - Quality Assurance Checks
+
+This enhanced architecture provides:
+- Improved accuracy through multi-stage processing
+- Better context understanding with knowledge graph integration
+- Scalable document processing with parallel pipelines
+- Robust quality control and validation mechanisms

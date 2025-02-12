@@ -1,0 +1,149 @@
+---
+title: 'Examples'
+description: 'Practical examples and use cases of Cortex API'
+---
+
+# Examples
+
+## Query Processing Examples
+
+### Basic Query
+```python
+from cortex.client import CortexClient
+
+client = CortexClient()
+response = client.query("What are the key features of the product?")
+print(response.answer)
+```
+
+### Context-Aware Query
+```python
+response = client.query(
+    "What were the sales numbers?",
+    context={
+        "time_period": "Q4 2024",
+        "region": "North America"
+    }
+)
+```
+
+### Multi-Document Query
+```python
+response = client.query(
+    "Compare the performance across reports",
+    documents=["report1.pdf", "report2.pdf", "report3.pdf"]
+)
+```
+
+## Document Processing Examples
+
+### Document Upload
+```python
+# Single document upload
+result = client.upload_document("path/to/document.pdf")
+
+# Batch upload
+results = client.upload_documents([
+    "document1.pdf",
+    "document2.docx",
+    "document3.txt"
+])
+```
+
+### Custom Processing
+```python
+# Upload with custom processing options
+result = client.upload_document(
+    "document.pdf",
+    options={
+        "chunk_size": 1000,
+        "overlap": 200,
+        "summarize": True,
+        "extract_metadata": True
+    }
+)
+```
+
+### Document Streaming
+```python
+# Stream large documents
+with client.stream_document("large_document.pdf") as stream:
+    for chunk in stream:
+        process_chunk(chunk)
+```
+
+## Integration Examples
+
+### Web Application
+```python
+from fastapi import FastAPI
+from cortex.client import CortexClient
+
+app = FastAPI()
+cortex = CortexClient()
+
+@app.post("/query")
+async def handle_query(query: str):
+    response = cortex.query(query)
+    return {"answer": response.answer}
+```
+
+### Batch Processing
+```python
+# Process multiple documents in batch
+async def process_documents(documents):
+    results = []
+    async with CortexClient() as client:
+        for doc in documents:
+            result = await client.process_document(doc)
+            results.append(result)
+    return results
+```
+
+### Real-time Processing
+```python
+# Set up real-time document processing
+@app.websocket("/process")
+async def process_stream(websocket):
+    async for document in websocket.iter_messages():
+        result = await cortex.process_document(document)
+        await websocket.send_json(result)
+```
+
+## Advanced Use Cases
+
+### Knowledge Graph Query
+```python
+# Query the knowledge graph
+results = client.graph_query("""
+    MATCH (doc:Document)-[:MENTIONS]->(topic:Topic)
+    WHERE topic.name = 'AI'
+    RETURN doc.title, doc.summary
+""")
+```
+
+### Custom Pipeline
+```python
+# Create a custom processing pipeline
+pipeline = client.create_pipeline([
+    {"type": "text_extraction"},
+    {"type": "summarization"},
+    {"type": "sentiment_analysis"},
+    {"type": "entity_extraction"}
+])
+
+result = pipeline.process("document.pdf")
+```
+
+### Hybrid Search
+```python
+# Combine vector and keyword search
+results = client.hybrid_search(
+    query="machine learning applications",
+    filters={
+        "date": "2024",
+        "category": "technical"
+    },
+    search_type="combined"
+)
+```

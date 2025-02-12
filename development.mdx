@@ -1,7 +1,85 @@
 ---
-title: 'Development'
-description: 'Preview changes locally to update your docs'
+title: 'Development Guide'
+description: 'Learn how to develop and extend Cortex API'
 ---
+
+# Development Guide
+
+This guide covers the development aspects of Cortex API, including its architecture and how to extend it.
+
+## Architecture Overview
+
+Cortex API is organized into two main components:
+
+### 1. Nucleus (`app/nucleus/`)
+The core system component that handles:
+- Configuration management
+- Core system functionality
+- Shared utilities and helpers
+
+### 2. Synapse (`app/synapse/`)
+The API layer that manages:
+- Route definitions
+- Request handling
+- Response formatting
+- Controller logic
+
+## Development Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/dipaksha1201/cortex.git
+cd cortex
+```
+
+2. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
+
+3. Install development dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## Running in Development Mode
+
+For development, run the server with auto-reload enabled:
+
+```bash
+uvicorn app.main:app --reload --loop asyncio
+```
+
+This will automatically restart the server when you make code changes.
+
+## Code Structure
+
+```bash
+app/
+├── main.py           # Application entry point
+├── nucleus/         
+│   ├── __init__.py
+│   └── config.py    # System configuration
+└── synapse/         
+    ├── __init__.py
+    └── router.py    # API endpoints
+```
+
+### Main Application (`main.py`)
+- FastAPI application initialization
+- Middleware configuration
+- Route registration
+
+### Configuration (`nucleus/config.py`)
+- Environment variables
+- System settings
+- Configuration management
+
+### API Routes (`synapse/router.py`)
+- Endpoint definitions
+- Request handling
+- Response formatting
 
 <Info>
   **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding. <br />
